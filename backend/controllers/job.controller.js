@@ -51,6 +51,10 @@ export const updateJob = async (req, res) => {
 export const deleteJob = async (req, res) => {
     const { id } = req.params;
     
+    if (!mongoose.Types.ObjectId.isValid(id)){
+        return res.status(404).json({success:false, message:"Invalid Product Id"});
+    }
+
     try {
         await Job.findByIdAndDelete(id); 
         res.status(200).json({ success: true, message: "Job deleted" });
