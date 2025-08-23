@@ -1,14 +1,92 @@
+import { useEffect, useState } from 'react'; 
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+  
+import { MdOutlineAddBox, MdOutlineDelete } from 'react-icons/md';
+
 import Header from "../components/Header";
 import Goal from "../components/Goal";
-import Sheet from "../components/Sheet";
 
-const Home = () => {
-    return (
-        <> 
-        <Header />
-        <Goal />
-        {/* <h1>Add Job Button</h1>*/}
-        <Sheet />
+const Home = () => { 
+    const [jobs, setJobs] = useState([]);
+    const [loading, setLoading] = useState(false); 
+    useEffect(() => {
+        setLoading(true);
+        axios
+            .get('http://localhost:3000/api/jobs')
+            .then((response) => {
+                setJobs(response.data.data);
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.log(error);
+                setLoading(false); 
+            })
+    }, []) 
+
+    return ( 
+        <>  
+            <Header />
+            <Goal />
+            {/* <h1>Add Job Button</h1>*/}
+        
+            <div className='p-4'>
+                <div className='flex justify-between items-center'>
+                    <h1 className='text-3xl my-8'>Jobs List</h1>
+                    <Link to='/jobs/create'>
+                        <MdOutlineAddBox className='text-4xl' />
+                    </Link>
+                </div>
+                {loading ? (
+                    <h1>Loading</h1>   // Todo: add loading UI
+                ) : ( 
+                    <table className='w-full border-separate border-spacing-2'>
+                        <thead>
+                            <tr> 
+                                <th className='border border-slate-600 rounded-md'>No</th>
+                                <th className='border border-slate-600 rounded-md'>Company</th>
+                                <th className='border border-slate-600 rounded-md max-md:hidden'>Job Title</th>
+                                <th className='border border-slate-600 rounded-md max-md:hidden'>Date Posted</th>
+                                <th className='border border-slate-600 rounded-md max-md:hidden'>Date Applied</th>
+                                <th className='border border-slate-600 rounded-md max-md:hidden'>Status</th>
+                                <th className='border border-slate-600 rounded-md max-md:hidden'>Link</th>
+                                <th className='border border-slate-600 rounded-md max-md:hidden'>Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {jobs.map((job, index) => (
+                                <tr key={job._id} className='h-8'>
+                                    <td className='border border-slate-600 rounded-md text-center'>   
+                                        {index + 1}
+                                    </td>
+                                    <td className='border border-slate-600 rounded-md text-center'>
+                                        {job.company}
+                                    </td>
+                                    <td className='border border-slate-600 rounded-md text-center max-md:hidden'>
+                                        {job.role}
+                                    </td>
+                                    <td className='border border-slate-600 rounded-md text-center max-md:hidden'>
+                                        {job.date_posted}
+                                    </td>
+                                    <td className='border border-slate-600 rounded-md text-center max-md:hidden'>
+                                        {job.date_applied}
+                                    </td>
+                                    <td className='border border-slate-600 rounded-md text-center max-md:hidden'>
+                                        {job.status}
+                                    </td>
+                                    <td className='border border-slate-600 rounded-md text-center max-md:hidden'>
+                                        {job.link}
+                                    </td>
+                                    <td className='border border-slate-600 rounded-md text-center max-md:hidden'>
+                                        {job.notes}
+                                    </td>
+                                </tr>
+                            ))}
+
+                        </tbody>
+                    </table>
+                )}
+            </div>
         </>
     )
 }

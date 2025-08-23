@@ -20,7 +20,7 @@ const jobSchema = new mongoose.Schema({
     link:{
         type: String
     },
-    note:{
+    notes:{
         type: String
     },
 }, {
