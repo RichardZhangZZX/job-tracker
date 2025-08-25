@@ -10,6 +10,7 @@ function App() {
       <Route path='/' element={<Home />} />
       <Route path='/jobs/create' element={<CreateJob />} />
       <Route path='/jobs/edit/:id' element={<EditJob />} />
+      {/* Might not need the delete */}
       <Route path='/jobs/delete/:id' element={<DeleteJob />} />
     </Routes>
   );

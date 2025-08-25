@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
   
-import { MdOutlineAddBox, MdOutlineDelete } from 'react-icons/md';
+import { MdOutlineAddBox } from 'react-icons/md';  // Might not need it later on
+
 
 import Header from "../components/Header";
 import Goal from "../components/Goal";
@@ -13,7 +14,7 @@ const Home = () => {
     useEffect(() => {
         setLoading(true);
         axios
-            .get('http://localhost:3000/api/jobs')
+            .get('http://localhost:3000/api/jobs') // TODO: Static hardcodede, need to update later
             .then((response) => {
                 setJobs(response.data.data);
                 setLoading(false);
@@ -43,7 +44,7 @@ const Home = () => {
                     <table className='w-full border-separate border-spacing-2'>
                         <thead>
                             <tr> 
-                                <th className='border border-slate-600 rounded-md'>No</th>
+                                <th className='border border-slate-600 rounded-md'>No</th> 
                                 <th className='border border-slate-600 rounded-md'>Company</th>
                                 <th className='border border-slate-600 rounded-md max-md:hidden'>Job Title</th>
                                 <th className='border border-slate-600 rounded-md max-md:hidden'>Date Posted</th>
@@ -51,8 +52,9 @@ const Home = () => {
                                 <th className='border border-slate-600 rounded-md max-md:hidden'>Status</th>
                                 <th className='border border-slate-600 rounded-md max-md:hidden'>Link</th>
                                 <th className='border border-slate-600 rounded-md max-md:hidden'>Notes</th>
+                                <th className='border border-slate-600 rounded-md'>Edit</th>
                             </tr>
-                        </thead>
+                        </thead> 
                         <tbody>
                             {jobs.map((job, index) => (
                                 <tr key={job._id} className='h-8'>
@@ -79,6 +81,13 @@ const Home = () => {
                                     </td>
                                     <td className='border border-slate-600 rounded-md text-center max-md:hidden'>
                                         {job.notes}
+                                    </td>
+                                    <td className='text-center'>
+                                        <Link to={`/jobs/edit/${job._id}`}> 
+                                            <button className='bg-linear-to-r from-cyan-500 to-blue-500 rounded-md w-full h-8 text-neutral-50'>
+                                                Edit
+                                            </button>
+                                        </Link>
                                     </td>
                                 </tr>
                             ))}
