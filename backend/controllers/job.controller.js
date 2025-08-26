@@ -12,6 +12,18 @@ export const getJobs = async (req, res) => {
     }
 };
 
+// Route for getting one job from database by id
+export const getJob = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const job = await Job.findById(id);
+        return res.status(200).json(job); 
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send({ message: error.message });
+    }
+};
+
 export const createJob = async (req, res) => {
     const job = req.body; // user will send this data
 
@@ -43,7 +55,7 @@ export const updateJob = async (req, res) => {
         const updatedJob = await Job.findByIdAndUpdate(id, job, {new:true});
         res.status(200).json({ success: true, data: updatedJob})
     } catch (error) {
-        res.status(500).json({ success: false, message: "Server Error Womp Womp"}); 
+        res.status(500).json({ success: false, message: "Server Error"}); 
 
     }
 };
