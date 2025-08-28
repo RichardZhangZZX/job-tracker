@@ -37,6 +37,20 @@ const EditJob = () => {
       });
   }, []);
 
+  const handleDeleteJob = () => {
+    setLoading(true);
+    axios
+      .delete(`http://localhost:3000/api/jobs/${id}`)
+      .then(() => {
+        setLoading(false);
+        navigate("/");
+      })
+      .catch((error) => {
+        setLoading(false);
+        console.log(error);
+      });
+  }
+
   const handleEditJob = () => {
     const data = {
       company: company,
@@ -144,6 +158,12 @@ const EditJob = () => {
           className="bg-linear-to-r from-cyan-300 to-blue-700 p-2 text-neutral-50 rounded-xl text-xl"
         >
           Save
+        </button>
+        <button
+          onClick={handleDeleteJob}
+          className="mt-4 bg-linear-to-r from-rose-300 to-red-700 p-2 text-neutral-50 rounded-xl text-xl"
+        >
+          Delete
         </button>
       </div>
     </div>

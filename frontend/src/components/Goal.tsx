@@ -4,7 +4,7 @@ const Goal = () => {
         <div className="flex flex-col justify-center items-center py-20">
             <p className="text-4xl text-cyan-500">You have </p>
             <h1 className="text-7xl text-cyan-500 py-5">5</h1>
-            <p className="text-4xl text-cyan-500">more jobs to apply today</p>
+            <p className="text-4xl text-cyan-500 text-center">more jobs to apply today</p>
         </div>
     )
 }

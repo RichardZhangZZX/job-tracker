@@ -1,15 +1,23 @@
 import { useEffect, useState } from 'react'; 
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-  
-import { MdOutlineAddBox } from 'react-icons/md';  // Might not need it later on
-
 
 import Header from "../components/Header";
 import Goal from "../components/Goal";
 
+type Job = {
+    _id: string;
+    company: string;
+    role: string;
+    date_posted: string;
+    date_applied: string;
+    status: string;
+    link: string;
+    notes: string;
+};
+
 const Home = () => { 
-    const [jobs, setJobs] = useState([]);
+    const [jobs, setJobs] = useState<Job[]>([]);
     const [loading, setLoading] = useState(false); 
     useEffect(() => {
         setLoading(true);
@@ -28,14 +36,12 @@ const Home = () => {
     return ( 
         <>  
             <Header />
-            <Goal />
-            {/* <h1>Add Job Button</h1>*/}
-        
+            <Goal />        
             <div className='p-4'>
                 <div className='flex justify-between items-center'>
                     <h1 className='text-3xl my-8'>Jobs List</h1>
                     <Link to='/jobs/create'>
-                        <MdOutlineAddBox className='text-4xl' />
+                        <button className='p-4 bg-linear-to-r from-teal-500 to-green-500 rounded-md w-full text-neutral-50 text-2xl'>Add Job</button>
                     </Link>
                 </div>
                 {loading ? (
@@ -44,7 +50,7 @@ const Home = () => {
                     <table className='w-full border-separate border-spacing-2'>
                         <thead>
                             <tr> 
-                                <th className='border border-slate-600 rounded-md'>No</th> 
+                                <th className='border px-2 border-slate-600 rounded-md'>No</th> 
                                 <th className='border border-slate-600 rounded-md'>Company</th>
                                 <th className='border border-slate-600 rounded-md max-md:hidden'>Job Title</th>
                                 <th className='border border-slate-600 rounded-md max-md:hidden'>Date Posted</th>
@@ -52,7 +58,7 @@ const Home = () => {
                                 <th className='border border-slate-600 rounded-md max-md:hidden'>Status</th>
                                 <th className='border border-slate-600 rounded-md max-md:hidden'>Link</th>
                                 <th className='border border-slate-600 rounded-md max-md:hidden'>Notes</th>
-                                <th className='border border-slate-600 rounded-md'>Edit</th>
+                                <th className='border px-2 border-slate-600 rounded-md'>Edit</th>
                             </tr>
                         </thead> 
                         <tbody>
