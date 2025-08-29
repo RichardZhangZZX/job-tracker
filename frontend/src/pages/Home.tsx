@@ -58,7 +58,10 @@ const Home = () => {
                                 <th className='border border-slate-600 rounded-md max-md:hidden'>Status</th>
                                 <th className='border border-slate-600 rounded-md max-md:hidden'>Link</th>
                                 <th className='border border-slate-600 rounded-md max-md:hidden'>Notes</th>
-                                <th className='border px-2 border-slate-600 rounded-md'>Edit</th>
+                                <th className='border px-2 border-slate-600 rounded-md'>
+                                    <span className="md:hidden">Info/Edit</span>
+                                    <span className="max-md:hidden">Edit</span>
+                                </th>
                             </tr>
                         </thead> 
                         <tbody>
@@ -91,7 +94,8 @@ const Home = () => {
                                     <td className='text-center'>
                                         <Link to={`/jobs/edit/${job._id}`}> 
                                             <button className='bg-linear-to-r from-cyan-500 to-blue-500 rounded-md w-full h-8 text-neutral-50'>
-                                                Edit
+                                                <span className='md:hidden'>Info/Edit</span>
+                                                <span className='hidden md:inline'>Edit</span>
                                             </button>
                                         </Link>
                                     </td>
