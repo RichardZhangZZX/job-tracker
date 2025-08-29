@@ -4,6 +4,8 @@ A fullstack job application tracker to help manage your job search process.
 
 **For a complete video walkthrough of the setup process, see the demo video below.**
 
+[![Demo Video](https://img.shields.io/badge/Demo-Video-red?logo=youtube)](https://drive.google.com/file/d/1S1YbDHl6EpdkUO-PYSGsHTWskUt7Sjz1/view?usp=sharing)
+
 ## Features
 
 - Track job applications with company, role, dates, status, and notes
